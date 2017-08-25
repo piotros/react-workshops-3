@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Post from './Post'
 import {connect} from 'react-redux'
-import {setLoading, storePosts} from "../store/data/blog/actions"
 import {getPosts} from "../services/posts"
 
 class Posts extends Component {
@@ -16,15 +15,7 @@ class Posts extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.posts) {
-      this.loadPosts()
-    }
-  }
-
-  loadPosts = () => {
-    // this.props.setLoading(true)
-    this.props.storePosts(getPosts())
-    // this.props.setLoading(false)
+    this.props.getPosts()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,16 +52,17 @@ class Posts extends Component {
 }
 
 const mapStatesToProps = state => {
+  const {posts, searchVal, loading} = state.blog
+
   return {
-    filter: state.blog.searchVal,
-    loading: state.blog.loading,
-    posts: state.blog.posts
+    filter: searchVal,
+    loading,
+    posts
   }
 }
 
 const mapDispatchToProps = {
-  storePosts,
-  setLoading
+  getPosts
 }
 
 export default connect(mapStatesToProps, mapDispatchToProps)(Posts)

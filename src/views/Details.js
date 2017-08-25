@@ -2,10 +2,17 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import Post from "../components/Post"
 import {connect} from 'react-redux'
+import {getPosts} from "../services/posts"
 
 class Details extends Component {
+  componentDidMount() {
+    this.props.getPosts()
+  }
+
   render() {
     const {post, loading} = this.props
+
+    const postComponent = post ? <Post post={post}/> : null
 
     return (
       <div className="details">
@@ -13,7 +20,7 @@ class Details extends Component {
 
         <br/>
 
-        {loading ? 'Loading...' : <Post post={post}/>}
+        {loading ? 'Loading...' : postComponent}
       </div>
     )
   }
@@ -29,4 +36,8 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)(Details)
+const mapDispatchToProps = {
+  getPosts
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details)
