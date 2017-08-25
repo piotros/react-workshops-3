@@ -8,7 +8,7 @@ class Details extends Component {
     super(props)
 
     this.state = {
-      post: {},
+      post: undefined,
       loading: true
     }
   }
@@ -28,7 +28,7 @@ class Details extends Component {
 
         <br/>
 
-        <Post post={post}/>
+        {loading ? 'Loading...' : <Post post={post}/>}
       </div>
     )
   }
