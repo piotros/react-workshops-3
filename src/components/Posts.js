@@ -26,9 +26,7 @@ class Posts extends Component {
         <strong>Filter:</strong> {filter}
         {
           posts
-            .filter(post => {
-              return post.title.indexOf(filter) !== -1 || post.body.indexOf(filter) !== -1
-            })
+            .filter(post => post.title.indexOf(filter) !== -1 || post.body.indexOf(filter) !== -1)
             .map(post => <Post post={post} key={post.id}/>)
         }
       </div>
