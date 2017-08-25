@@ -9,8 +9,11 @@ class Posts extends Component {
 
     this.state = {
       loading: true,
-      posts: []
+      posts: [],
+      filter: props.filter
     }
+
+    this.filterTimeout = undefined;
   }
 
   componentDidMount() {
@@ -19,9 +22,16 @@ class Posts extends Component {
       .then(posts => this.setState({posts, loading: false}))
   }
 
+  componentWillReceiveProps(nextProps) {
+    clearTimeout(this.filterTimeout)
+    this.filterTimeout = setTimeout(() => {
+      this.setState({filter: nextProps.filter});
+    }, 10000);
+  }
+
   render() {
     const {posts, loading} = this.state
-    const {filter} = this.props
+    const {filter} = this.state
 
     return (
       <div className="posts">
