@@ -9,7 +9,7 @@ class Search extends Component {
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const value = event.target.value
     const newState = {text: value}
 
@@ -22,7 +22,7 @@ class Search extends Component {
       <div className="search">
         <input type="text"
                value={this.state.text}
-               onChange={event => this.handleChange(event)}
+               onChange={this.handleChange}
         />
       </div>
     )
