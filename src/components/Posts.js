@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {customFetch} from '../services/fetch'
 import Post from './Post'
+import {connect} from 'react-redux'
 
 class Posts extends Component {
   constructor(props) {
@@ -40,4 +41,10 @@ class Posts extends Component {
   }
 }
 
-export default Posts
+const mapStatesToProps = state => {
+  return {
+    filter: state.blog.searchVal
+  }
+}
+
+export default connect(mapStatesToProps)(Posts)

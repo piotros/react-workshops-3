@@ -7,7 +7,6 @@ class Search extends Component {
     const value = event.target.value
 
     this.props.search(value);
-    this.props.onFilterChange(value);
   }
 
   render() {
