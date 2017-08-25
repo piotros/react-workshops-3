@@ -7,6 +7,7 @@ class Posts extends Component {
     super(props)
 
     this.state = {
+      loading: true,
       posts: []
     }
   }
@@ -14,15 +15,19 @@ class Posts extends Component {
   componentDidMount() {
     customFetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
-      .then(posts => this.setState({posts}))
+      .then(posts => this.setState({posts, loading: false}))
   }
 
   render() {
-    const {posts} = this.state
+    const {posts, loading} = this.state
     const {filter} = this.props
 
     return (
       <div className="posts">
+        {loading ? 'Loading...' : null}
+
+        <br/>
+
         <strong>Filter:</strong> {filter}
         {
           posts
