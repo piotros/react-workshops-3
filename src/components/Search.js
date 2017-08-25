@@ -9,12 +9,12 @@ class Search extends Component {
     }
   }
 
-
   handleChange(event) {
     const value = event.target.value
     const newState = {text: value}
 
     this.setState(newState)
+    this.props.onFilterChange(value);
   }
 
   render() {

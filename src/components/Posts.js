@@ -14,15 +14,17 @@ class Posts extends Component {
   componentDidMount() {
     customFetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
-      .then(posts => {
-        this.setState({posts})
-      })
+      .then(posts => this.setState({posts}))
   }
 
   render() {
+    const {posts} = this.state
+    const {filter} = this.props
+
     return (
       <div className="posts">
-        {this.state.posts.map(post => <Post post={post} key={post.id}/>)}
+        <strong>Filter:</strong> {filter}
+        {posts.map(post => <Post post={post} key={post.id}/>)}
       </div>
     )
 
