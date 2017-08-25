@@ -2,14 +2,13 @@ import React, {Component} from 'react'
 import {customFetch} from '../services/fetch'
 import Post from './Post'
 import {connect} from 'react-redux'
+import {setLoading, storePosts} from "../store/data/blog/actions"
 
 class Posts extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      loading: true,
-      posts: [],
       filter: props.filter
     }
 
@@ -17,21 +16,26 @@ class Posts extends Component {
   }
 
   componentDidMount() {
+    this.props.setLoading(true)
+
     customFetch('https://jsonplaceholder.typicode.com/posts')
       .then(response => response.json())
-      .then(posts => this.setState({posts, loading: false}))
+      .then(posts => {
+        this.props.setLoading(false)
+        this.props.storePosts(posts)
+      })
   }
 
   componentWillReceiveProps(nextProps) {
     clearTimeout(this.filterTimeout)
     this.filterTimeout = setTimeout(() => {
       this.setState({filter: nextProps.filter});
-    }, 10000);
+    }, 1000);
   }
 
   render() {
-    const {posts, loading} = this.state
     const {filter} = this.state
+    const {posts, loading} = this.props
 
     return (
       <div className="posts">
@@ -53,8 +57,15 @@ class Posts extends Component {
 
 const mapStatesToProps = state => {
   return {
-    filter: state.blog.searchVal
+    filter: state.blog.searchVal,
+    loading: state.blog.loading,
+    posts: state.blog.posts
   }
 }
 
-export default connect(mapStatesToProps)(Posts)
+const mapDispatchToProps = {
+  storePosts,
+  setLoading
+}
+
+export default connect(mapStatesToProps, mapDispatchToProps)(Posts)
