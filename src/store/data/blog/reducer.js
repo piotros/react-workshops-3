@@ -2,7 +2,7 @@ import {SEARCH, SET_LOADING, STORE_POSTS} from "../../actionTypes"
 
 const defaultState = {
   searchVal: '',
-  posts: [],
+  posts: undefined,
   loading: false
 }
 

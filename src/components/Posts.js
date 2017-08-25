@@ -16,6 +16,12 @@ class Posts extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.posts) {
+      this.loadPosts()
+    }
+  }
+
+  loadPosts = () => {
     this.props.setLoading(true)
 
     customFetch('https://jsonplaceholder.typicode.com/posts')
@@ -46,8 +52,12 @@ class Posts extends Component {
         <strong>Filter:</strong> {filter}
         {
           posts
-            .filter(post => post.title.includes(filter) || post.body.includes(filter))
-            .map(post => <Post post={post} key={post.id}/>)
+            ?
+            posts
+              .filter(post => post.title.includes(filter) || post.body.includes(filter))
+              .map(post => <Post post={post} key={post.id}/>)
+            :
+            null
         }
       </div>
     )

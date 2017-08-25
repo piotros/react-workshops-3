@@ -1,26 +1,11 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {customFetch} from '../services/fetch'
 import Post from "../components/Post"
+import {connect} from 'react-redux'
 
 class Details extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      post: undefined,
-      loading: true
-    }
-  }
-
-  componentDidMount() {
-    customFetch('https://jsonplaceholder.typicode.com/posts/' + this.props.match.params.id)
-      .then(response => response.json())
-      .then(post => this.setState({post, loading: false}))
-  }
-
   render() {
-    const {post, loading} = this.state
+    const {post, loading} = this.props
 
     return (
       <div className="details">
@@ -34,4 +19,14 @@ class Details extends Component {
   }
 }
 
-export default Details
+const mapStateToProps = (state, ownProps) => {
+  const {id} = ownProps.match.params
+  const {posts} = state.blog
+
+  return {
+    post: posts && posts.find(el => el.id === parseInt(id, 10)),
+    loading: state.blog.loading
+  }
+}
+
+export default connect(mapStateToProps)(Details)
