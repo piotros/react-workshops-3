@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import Search from '../components/Search'
 import Posts from '../components/Posts'
 import {debounce} from 'lodash'
-import Details from "./Details"
-import {Route} from "react-router-dom"
 
 class Main extends Component {
   constructor(props) {
@@ -24,10 +22,7 @@ class Main extends Component {
     return (
       <div className="main">
         <Search onFilterChange={debounce(this.onFilterChange, 300)}/>
-        <div className="main__content" style={{display: 'flex'}}>
-          <Posts filter={filter}/>
-          <Route exact strict path="/details/:id" component={Details}/>
-        </div>
+        <Posts filter={filter}/>
       </div>
     )
   }

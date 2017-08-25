@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import Main from './views/Main'
+import Details from "./views/Details"
 import NotFound from "./views/NotFound"
 
 class App extends Component {
@@ -14,15 +15,10 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route path="/details" children={({match}) => {
-            return (
-              <span>Are you on details? {match ? 'Yes' : 'No' }</span>
-            )
-          }}/>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/main"/>}/>
-            <Route path="/main" component={Main}/>
-            <Route path="/details" component={Main}/>
+            <Route exact strict path="/main" component={Main}/>
+            <Route exact strict path="/details/:id" component={Details}/>
             <Route component={NotFound}/>
           </Switch>
         </div>
