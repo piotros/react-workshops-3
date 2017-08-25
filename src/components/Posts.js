@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
-import {customFetch} from '../services/fetch'
 import Post from './Post'
 import {connect} from 'react-redux'
 import {setLoading, storePosts} from "../store/data/blog/actions"
+import {getPosts} from "../services/posts"
 
 class Posts extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class Posts extends Component {
       filter: props.filter
     }
 
-    this.filterTimeout = undefined;
+    this.filterTimeout = undefined
   }
 
   componentDidMount() {
@@ -22,21 +22,16 @@ class Posts extends Component {
   }
 
   loadPosts = () => {
-    this.props.setLoading(true)
-
-    customFetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(posts => {
-        this.props.setLoading(false)
-        this.props.storePosts(posts)
-      })
+    // this.props.setLoading(true)
+    this.props.storePosts(getPosts())
+    // this.props.setLoading(false)
   }
 
   componentWillReceiveProps(nextProps) {
     clearTimeout(this.filterTimeout)
     this.filterTimeout = setTimeout(() => {
-      this.setState({filter: nextProps.filter});
-    }, 1000);
+      this.setState({filter: nextProps.filter})
+    }, 1000)
   }
 
   render() {
