@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {
   BrowserRouter as Router,
+  Redirect,
   Route
 } from 'react-router-dom'
 
@@ -12,7 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact strict path="/" component={Main}/>
+          <Route exact path="/" render={() => <Redirect to="/main"/>}/>
           <Route exact strict path="/main" component={Main}/>
           <Route exact strict path="/details/:id" component={Details}/>
         </div>
