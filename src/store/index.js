@@ -1,7 +1,16 @@
-import {createStore} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
 
 import rootReducer from './rootReducer'
 
-const store = createStore(rootReducer, window.devToolsExtension && window.devToolsExtension())
+import logger from './middlewares/logger'
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(
+    applyMiddleware(logger)
+  )
+)
 
 export default store
