@@ -11,15 +11,17 @@ class Main extends Component {
     }
   }
 
-  onFilterChange = (filter) => {
+  onFilterChange = filter => {
     this.setState({filter})
   }
 
   render() {
+    const {filter} = this.state
+
     return (
       <div className="main">
-        <Search onFilterChange={this.onFilterChange} />
-        <Posts filter={this.state.filter}/>
+        <Search onFilterChange={this.onFilterChange}/>
+        <Posts filter={filter}/>
       </div>
     )
   }
