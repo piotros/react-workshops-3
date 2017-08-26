@@ -14,6 +14,10 @@ class Details extends Component {
     console.log('submitted', values)
   }
 
+  onSubmitFail(values) {
+    console.log('fail', values)
+  }
+
   render() {
     const {post, loading} = this.props
 
@@ -25,7 +29,7 @@ class Details extends Component {
 
         <br/>
 
-        <PostEditForm onSubmit={this.onSubmit}/>
+        <PostEditForm onSubmit={this.onSubmit} onSubmitFail={this.onSubmitFail}/>
 
         <br/>
 

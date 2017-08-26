@@ -14,9 +14,9 @@ export const PostEditForm = props => {
 
 const validate = values => {
   const errors = {}
-  const {myVal} = values
+  const {myval} = values
 
-  if (myVal === 'test') {
+  if (myval === 'test') {
     errors.myval = 'wrong val'
   }
 
