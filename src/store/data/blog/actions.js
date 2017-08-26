@@ -1,8 +1,6 @@
 import {SEARCH, STORE_POSTS, SET_LOADING} from '../../actionTypes'
-import {createActions} from 'redux-actions'
+import {createAction} from 'redux-actions'
 
-export const {search, storePosts, setLoading} = createActions(
-  SEARCH,
-  STORE_POSTS,
-  SET_LOADING
-)
+export const search = createAction(SEARCH)
+export const storePosts = createAction(STORE_POSTS)
+export const setLoading = createAction(SET_LOADING)
