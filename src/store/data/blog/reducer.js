@@ -1,4 +1,6 @@
-import {SEARCH, SET_LOADING, STORE_POSTS} from "../../actionTypes"
+import {SEARCH, SET_LOADING, STORE_POSTS} from '../../actionTypes'
+
+import {handleActions} from 'redux-actions'
 
 const defaultState = {
   searchVal: '',
@@ -6,19 +8,10 @@ const defaultState = {
   loading: false
 }
 
-const blogReducer = (state = defaultState, action) => {
-  const {type, payload} = action;
-
-  switch (type) {
-    case SEARCH:
-      return {...state, searchVal: payload};
-    case SET_LOADING:
-      return {...state, loading: payload};
-    case STORE_POSTS:
-      return {...state, posts: payload};
-    default:
-      return state;
-  }
-}
+const blogReducer = handleActions({
+  [SEARCH]: (state, {payload}) => ({...state, searchVal: payload}),
+  [SET_LOADING]: (state, {payload}) => ({...state, loading: payload}),
+  [STORE_POSTS]: (state, {payload}) => ({...state, posts: payload})
+}, defaultState)
 
 export default blogReducer
