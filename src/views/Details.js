@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import Post from "../components/Post"
+import Post from '../components/Post'
 import {connect} from 'react-redux'
-import {getPosts} from "../services/posts"
+import {getPosts} from '../services/posts'
+import PostEditForm from '../components/PostEditForm'
 
 class Details extends Component {
   componentDidMount() {
     this.props.getPosts()
+  }
+
+  onSubmit(values) {
+    console.log('submitted', values)
   }
 
   render() {
@@ -17,6 +22,10 @@ class Details extends Component {
     return (
       <div className="details">
         <Link to="/main">Back to main</Link>
+
+        <br/>
+
+        <PostEditForm onSubmit={this.onSubmit}/>
 
         <br/>
 
